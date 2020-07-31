@@ -105,7 +105,7 @@ font {
           <div class="q-ma-md" v-show="dataList.length == 0">
             <p class="bg">股市有风险，投资需谨慎!!!</p>
             <p class="bg">任意关键字搜索股票，单击添加到关注列表</p>
-            <p class="bg">股票列表可以拖动进行排序</p>
+            <p class="bg">股票列表可以拖动进行排序，可以点击表头排序</p>
             <p class="bg">列表双击将置顶，且会将该股票涨幅显示到图标上</p>
             <p class="bg">数据来自第三方，只供学习使用</p>
             <p class="bg">作者：阿新 [opdss@qq.com]</p>
