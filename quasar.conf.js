@@ -18,7 +18,7 @@ module.exports = function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
-
+      'utils',
       'i18n',
       'axios',
     ],
@@ -112,9 +112,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: `stockHelper`,
-        short_name: `stockHelper`,
-        description: `股票小助手，看盘神器`,
+        name: 'stockHelper',
+        short_name: 'stockHelper',
+        description: '股票小助手，看盘神器',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

@@ -19,28 +19,7 @@ font {
     <q-page-container>
       <q-page class="flex">
         <div class="q-mx-md q-mb-xs q-mt-md" style="width:480px;height:360px">
-          <q-input v-model="kw" class="q-mb-xs" label="股票名称/代码" dense>
-            <template v-slot:append>
-              <q-icon name="search" />
-            </template>
-            <q-menu fit v-model="searchList.length !== 0" no-parent-event no-focus>
-              <q-list dense>
-                <template v-for="(item, i) in searchList">
-                  <q-item v-bind:key="i" clickable @click="add(item.info)">
-                    <q-item-section>{{item.code}}</q-item-section>
-                    <q-item-section>{{item.name}}</q-item-section>
-                    <q-item-section>{{item.no}}</q-item-section>
-                  </q-item>
-                </template>
-                <q-item>
-                  <q-item-section></q-item-section>
-                  <q-item-section side>
-                    <q-btn flat dense color="primary" @click="searchList = []" label="关闭" />
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-input>
+          <stock-search @addStock="add"/>
           <q-list dense>
             <q-item dense>
               <q-item-section>
@@ -121,6 +100,7 @@ import * as service from "src/libraries/service";
 import * as utils from "src/libraries/utils";
 import draggable from "vuedraggable";
 import StockItem from "src/components/StockItem";
+import StockSearch from "src/components/StockSearch";
 const STOCK_KEY = "stocks";
 const BADGE_KEY = "badge";
 export default {
@@ -128,12 +108,11 @@ export default {
   components: {
     draggable,
     StockItem,
+    StockSearch
   },
   data() {
     return {
-      kw: "",
       dataList: [],
-      searchList: [],
       timer: null,
       sortByName: null,
       sortByVal: null,
@@ -142,17 +121,13 @@ export default {
   methods: {
     //添加
     add(info) {
+      console.log(1111, info)
       let idx = _.findIndex(this.dataList, function (o) {
         return o.exCode == info.exCode;
       });
       if (idx == -1) {
         let data = this.dataList;
-        data.unshift({
-          exCode: info.exCode,
-          isBadge: false,
-          notice: {},
-          info: info,
-        });
+        data.unshift(info);
         this.saveData(data, "添加成功");
       } else {
         if (idx > 0) {
@@ -160,8 +135,6 @@ export default {
         }
       }
       this.sortByName = null;
-      this.kw = "";
-      this.searchList = [];
     },
     //删除
     del(idx) {
@@ -262,18 +235,6 @@ export default {
             });
         }, 1500);
       });
-    },
-  },
-  //http://www.360doc.com/content/17/0307/15/1489589_634734789.shtml
-  watch: {
-    kw(v) {
-      if (v) {
-        utils.getSearchStocks(v).then((data) => {
-          this.searchList = data;
-        });
-      } else {
-        this.searchList = [];
-      }
     },
   },
 
