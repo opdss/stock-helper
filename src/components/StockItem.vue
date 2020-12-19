@@ -43,6 +43,9 @@
               <q-item clickable v-close-popup @click="$emit('kline')">
                 <q-item-section>K线图</q-item-section>
               </q-item>
+              <q-item clickable v-close-popup :to="'https://baidu.com'">
+                <q-item-section>股票资讯</q-item-section>
+              </q-item>
               <q-separator inset class="q-my-xs" />
               <q-item clickable v-close-popup @click="$emit('remove')">
                 <q-item-section>删除</q-item-section>
@@ -136,6 +139,7 @@
 </template>
 
 <script>
+import { openURL } from 'quasar'
 export default {
   name: "StockItem",
   props: {
@@ -144,5 +148,11 @@ export default {
       required: true,
     },
   },
+  methods : {
+
+    openUrl(url){
+      openUrl(url)
+    }
+  }
 };
 </script>
